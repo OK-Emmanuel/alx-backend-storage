@@ -108,3 +108,6 @@ This project contains tasks for learning to use the MongoDB NoSQL database appli
 + [x] [Introduction to MongoDB and Python](https://intranet.alxswe.com/rltoken/axwwF4CjO7FnK8Ecochqnw)
 + [x] [mongo Shell Methods](https://intranet.alxswe.com/rltoken/lUqnLwOHbbp9FK39ijNmDQ)
 + [x] [The mongo Shell](https://intranet.alxswe.com/rltoken/bffQMLcTB4cg1bKqgBW3jw)       
+
+## Author
+- Olawuni Emmanuel Kayode
