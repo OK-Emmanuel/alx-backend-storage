@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-'''Python function that inserts a new document in a collection based on kwargs
+'''Python function that inserts a new document in a collection based on kwa
 '''
 
 

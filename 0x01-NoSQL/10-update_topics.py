@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-'''Task 10's module.
+'''Python function that changes all topics based on a name
 '''
 
 
