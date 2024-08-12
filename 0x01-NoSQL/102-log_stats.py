@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-'''Task 15's module.
+'''Log stats - new version
 '''
 from pymongo import MongoClient
 
