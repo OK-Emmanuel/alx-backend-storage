@@ -1,23 +1,48 @@
+#!/usr/bin/env python3
+'''Task 12's module.
+'''
 from pymongo import MongoClient
+from pymongo.errors import ConnectionError, OperationFailure
 
-# Connect to MongoDB
-client = MongoClient('mongodb://localhost:27017/')
-db = client['logs']
-collection = db['nginx']
 
-# Get total number of documents
-total_logs = collection.count_documents({})
+def print_nginx_request_logs(nginx_collection):
+    '''Prints stats about Nginx request logs.
+    '''
+    try:
+        # Total number of logs
+        total_logs = nginx_collection.count_documents({})
+        print('{} logs'.format(total_logs))
 
-# Get count of each HTTP method
-methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
-method_counts = {method: collection.count_documents({'method': method}) for method in methods}
+        # HTTP Methods
+        print('Methods:')
+        methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
+        for method in methods:
+            req_count = nginx_collection.count_documents({'method': method})
+            print('\tmethod {}: {}'.format(method, req_count))
 
-# Get count of logs with method=GET and path=/status
-status_check_count = collection.count_documents({'method': 'GET', 'path': '/status'})
+        # Status check for method GET and path /status
+        status_checks_count = nginx_collection.count_documents({'method': 'GET', 'path': '/status'})
+        print('{} status check'.format(status_checks_count))
+        
+    except OperationFailure as e:
+        print(f"Operation failed: {e}")
+    except ConnectionError as e:
+        print(f"Connection failed: {e}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
-# Print results
-print(f"{total_logs} logs")
-print("Methods:")
-for method in methods:
-    print(f"\tmethod {method}: {method_counts[method]}")
-print(f"{status_check_count} status check")
+
+def run():
+    '''Provides some stats about Nginx logs stored in MongoDB.
+    '''
+    try:
+        client = MongoClient('mongodb://127.0.0.1:27017')
+        print_nginx_request_logs(client.logs.nginx)
+    except ConnectionError as e:
+        print(f"Connection failed: {e}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+
+if __name__ == '__main__':
+    run()
